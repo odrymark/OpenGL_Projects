@@ -9,7 +9,7 @@ This repository showcases various OpenGL concepts and techniques I've implemente
 | Folder                  | Description                                      | Key Topics / Techniques                          | Status    |
 |-------------------------|--------------------------------------------------|--------------------------------------------------|-----------|
 | `01_triangle`           | Basic colored triangle                           | VAO, VBO, shaders, basic pipeline                | Complete  |
-| `02_textures`           | Basic textured rectangle                         | Textures                                         | Ongoing   |
+| `02_textures`           | Basic textured rectangle                         | Textures                                         | In Progress   |
 
 ## Technologies Used
 
