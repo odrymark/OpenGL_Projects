@@ -44,7 +44,7 @@ int main()
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
 
-    Shader shader("/home/odrymark/CLionProjects/first/shader_src/vertex", "/home/odrymark/CLionProjects/first/shader_src/fragment");
+    Shader shader("/home/odrymark/CLionProjects/openGL/01_triangle/shader_src/vertex", "/home/odrymark/CLionProjects/openGL/01_triangle/shader_src/fragment");
 
     while(!glfwWindowShouldClose(window))
     {
@@ -53,11 +53,6 @@ int main()
 
         shader.use();
         glBindVertexArray(VAO);
-
-        float timeValue = glfwGetTime();
-        float redValue = (std::sin(timeValue) / 2.0f) + 0.5f;
-        int vertexColorLoc = glGetUniformLocation(shader.ID, "color");
-        glUniform4f(vertexColorLoc, redValue, 0.0f, 0.0f, 1.0f);
 
         glDrawArrays(GL_TRIANGLES, 0, 3);
 
