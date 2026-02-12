@@ -8,7 +8,7 @@ This repository showcases various OpenGL concepts and techniques I've implemente
 
 | Folder                  | Description                                      | Key Topics / Techniques                          | Status    |
 |-------------------------|--------------------------------------------------|--------------------------------------------------|-----------|
-| `01-triangle`           | Basic colored triangle                           | VAO, VBO, shaders, basic pipeline                | Complete  |
+| `01_triangle`           | Basic colored triangle                           | VAO, VBO, shaders, basic pipeline                | Complete  |
 
 ## Technologies Used
 
@@ -21,7 +21,7 @@ This repository showcases various OpenGL concepts and techniques I've implemente
 
 ```bash
 # Example for a single project folder
-cd 05-camera
+cd 01_triangle
 mkdir build && cd build
 cmake ..
 cmake --build .    # or make / ninja / open .sln
