@@ -8,8 +8,9 @@ This repository showcases various OpenGL concepts and techniques I've implemente
 
 | Folder                  | Description                                      | Key Topics / Techniques                          | Status    |
 |-------------------------|--------------------------------------------------|--------------------------------------------------|-----------|
-| `01_triangle`           | Basic colored triangle                           | VAO, VBO, shaders, basic pipeline                | Completed  |
-| `02_textures`           | Basic textured rectangle                         | Textures, EBO                                        | Completed   |
+| `01_triangle`           | Basic colored triangle                           | VAO, VBO, shaders, basic pipeline                | Completed |
+| `02_textures`           | Basic textured rectangle                         | Textures, EBO                                    | Completed |
+| `03_transformation`     | Constantly rotating rectangle                    | Matrices, Dot Products, Transformation           | Completed |
 
 ## Technologies Used
 
