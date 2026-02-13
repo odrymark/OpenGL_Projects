@@ -22,7 +22,6 @@ This repository showcases various OpenGL concepts and techniques I've implemente
 ## How to Build (most projects)
 
 ```bash
-# Example for a single project folder
 cd 01_triangle
 mkdir build && cd build
 cmake ..
