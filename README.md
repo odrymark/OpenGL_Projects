@@ -26,4 +26,4 @@ This repository showcases various OpenGL concepts and techniques I've implemente
 cd 01_triangle
 mkdir build && cd build
 cmake ..
-cmake --build .    # or make / ninja / open .sln
+cmake --build .
