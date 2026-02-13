@@ -101,10 +101,23 @@ int main()
 
     glBindVertexArray(VAO);
 
+    float transparency = 0.5f;
+    float diff = 0.01f;
+    shader.setFloat("transp", transparency);
+
     while(!glfwWindowShouldClose(window))
     {
         glClearColor(0.f, 0.f, 0.f, 1.f);
         glClear(GL_COLOR_BUFFER_BIT);
+
+        if (glfwGetKey(window, GLFW_KEY_UP) && transparency <= 1.f) {
+            transparency += diff;
+            shader.setFloat("transp", transparency);
+        }
+        else if (glfwGetKey(window, GLFW_KEY_DOWN) && transparency >= 0.f) {
+            transparency -= diff;
+            shader.setFloat("transp", transparency);
+        }
 
         shader.use();
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
