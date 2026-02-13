@@ -17,6 +17,8 @@ This repository showcases various OpenGL concepts and techniques I've implemente
 - **Language**: C++17 / C++20
 - **OpenGL**: 3.3 Core Profile
 - **Window & Context**: GLFW
+- **Math library**: GLM
+- **Image loading**: stb_image
 - **Build system**: CMake
 
 ## How to Build (most projects)
