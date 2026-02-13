@@ -13,6 +13,7 @@ add_executable(02_textures
         src/main.cpp
         src_glad/glad.c
         src/shader.h
+        src/stb_image.h
 )
 
 target_link_libraries(02_textures PRIVATE
