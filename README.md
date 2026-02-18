@@ -12,10 +12,11 @@ This repository showcases various OpenGL concepts and techniques I've implemente
 | `02_textures`           | Basic textured rectangle                         | Textures, EBO                                    | Completed |
 | `03_transformation`     | Constantly rotating rectangle                    | Matrices, Dot Products, Transformation           | Completed |
 | `04_coordinate_sys`     | Constantly rotating 3D cubes                     | Spaces, Projections, Model-View-Projection Matrices | Completed |
+| `05_camera`             | Movable camera with WASD and mouse in 3D         | Trigonometry, User Input, View Space             | Completed |
 
 ## Technologies Used
 
-- **Language**: C++17 / C++20
+- **Language**: C++20
 - **OpenGL**: 3.3 Core Profile
 - **Window & Context**: GLFW
 - **Math library**: GLM
