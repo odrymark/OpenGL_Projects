@@ -13,6 +13,7 @@ This repository showcases various OpenGL concepts and techniques I've implemente
 | `03_transformation`     | Constantly rotating rectangle                    | Matrices, Dot Products, Transformation           | Completed |
 | `04_coordinate_sys`     | Constantly rotating 3D cubes                     | Spaces, Projections, Model-View-Projection Matrices | Completed |
 | `05_camera`             | Movable camera with WASD and mouse in 3D         | Trigonometry, User Input, View Space             | Completed |
+| `Minecraft_Clone`       | A 3D game imitating the popular game "Minecraft" | Face Culling, Collision, Raycasting, Physics Logic | In Progress |
 
 ## Technologies Used
 
