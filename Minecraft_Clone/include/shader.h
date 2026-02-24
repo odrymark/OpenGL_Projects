@@ -3,6 +3,7 @@
 
 #include <glad/glad.h>
 #include <glm.hpp>
+#include <gtc/type_ptr.hpp>
 
 #include <string>
 #include <fstream>
@@ -12,6 +13,8 @@
 class Shader {
     public:
         unsigned int ID;
+
+    Shader() : ID(0) {}
 
     Shader(const char* vertexPath, const char* fragmentPath) {
         std::string vertexCode;
