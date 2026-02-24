@@ -16,6 +16,12 @@ add_executable(Minecraft_Clone
         include/shader.h
         include/stb_image.h
         include/camera.h
+        include/physics.h
+        src/physics.cpp
+        include/world.h
+        src/world.cpp
+        include/game.h
+        src/game.cpp
 )
 
 target_link_libraries(Minecraft_Clone PRIVATE
