@@ -32,10 +32,11 @@ void Game::run(GLFWwindow *window) {
         deltaTime = currFrame - lastFrame;
         lastFrame = currFrame;
         physics.breakTimer += deltaTime;
+        physics.placeTimer += deltaTime;
 
         physics.targetBlock(camera.position, camera.front);
         processInput(window);
-        camera.position.y += physics.applyGravity(camera.position, PLAYER_HEIGHT, deltaTime);
+        camera.position.y += physics.applyGravity(camera.position, PLAYER_RADIUS, PLAYER_HEIGHT, deltaTime);
 
         shader.use();
         glm::mat4 view = camera.getViewMatrix();
@@ -135,6 +136,9 @@ void Game::processInput(GLFWwindow *window)
     if(glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
         physics.breakBlock();
 
+    if(glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
+        physics.placeBlock(camera.position, PLAYER_HEIGHT, PLAYER_RADIUS);
+
 
     if(glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
     {
@@ -144,7 +148,7 @@ void Game::processInput(GLFWwindow *window)
     glm::vec3 lastPos = camera.position;
 
     if(glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        camera.processKeyInput(FORWARD, deltaTime, true);
+        camera.processKeyInput(FORWARD, deltaTime, false);
     if(glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
         camera.processKeyInput(BACKWARD, deltaTime, false);
     if(glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
@@ -152,6 +156,8 @@ void Game::processInput(GLFWwindow *window)
     if(glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
         camera.processKeyInput(LEFT, deltaTime, false);
 
-    if(physics.checkCollision(PLAYER_HEIGHT, PLAYER_RADIUS, camera.position))
-        camera.position = lastPos;
+    if(physics.checkCollision(PLAYER_HEIGHT, PLAYER_RADIUS, glm::vec3(camera.position.x, lastPos.y, lastPos.z)))
+        camera.position.x = lastPos.x;
+    if(physics.checkCollision(PLAYER_HEIGHT, PLAYER_RADIUS, glm::vec3(lastPos.x, lastPos.y, camera.position.z)))
+        camera.position.z = lastPos.z;
 }
