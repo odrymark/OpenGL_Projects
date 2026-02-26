@@ -28,10 +28,11 @@ void Physics::targetBlock(glm::vec3 cameraPos, glm::vec3 cameraFront)
         int y = static_cast<int>(round(pos.y));
         int z = static_cast<int>(round(pos.z));
 
-        if(x < 0 || x >= game->getSizeX() ||
-           y < 0 || y >= game->getSizeY() ||
-           z < 0 || z >= game->getSizeZ())
+        if(game->isOutOfWorld(x, y, z))
+        {
+            isBlockPlaceable = false;
             continue;
+        }
 
         if(game->isBlockSolid(x, y, z))
         {
@@ -39,14 +40,42 @@ void Physics::targetBlock(glm::vec3 cameraPos, glm::vec3 cameraFront)
             hasTarget = true;
             return;
         }
+
+        isBlockPlaceable = true;
+        prevAirBlock = glm::ivec3(x, y, z);
     }
 }
 
-void Physics::breakBlock() {
+void Physics::breakBlock()
+{
     if (hasTarget && breakTimer >= BREAK_COOLDOWN)
     {
         game->setBlock(targetedBlock.x, targetedBlock.y, targetedBlock.z, 0);
         breakTimer = 0.f;
+    }
+}
+
+void Physics::placeBlock(glm::vec3 cameraPos, float playerHeight, float playerRadius)
+{
+    int minX = static_cast<int>(round(cameraPos.x - playerRadius));
+    int maxX = static_cast<int>(round(cameraPos.x + playerRadius));
+    int minY = static_cast<int>(round(cameraPos.y - playerHeight));
+    int maxY = static_cast<int>(round(cameraPos.y));
+    int minZ = static_cast<int>(round(cameraPos.z - playerRadius));
+    int maxZ = static_cast<int>(round(cameraPos.z + playerRadius));
+
+    if(hasTarget && isBlockPlaceable && placeTimer >= PLACE_COOLDOWN &&
+        glm::ivec3(minX, minY, minZ) != prevAirBlock &&
+        glm::ivec3(minX, minY, maxZ) != prevAirBlock &&
+        glm::ivec3(maxX, minY, minZ) != prevAirBlock &&
+        glm::ivec3(maxX, minY, maxZ) != prevAirBlock &&
+        glm::ivec3(minX, maxY, minZ) != prevAirBlock &&
+        glm::ivec3(minX, maxY, maxZ) != prevAirBlock &&
+        glm::ivec3(maxX, maxY, minZ) != prevAirBlock &&
+        glm::ivec3(maxX, maxY, maxZ) != prevAirBlock)
+    {
+        game->setBlock(prevAirBlock.x, prevAirBlock.y, prevAirBlock.z, 1);
+        placeTimer = 0.f;
     }
 }
 
@@ -85,21 +114,26 @@ bool Physics::checkCollision(float playerHeight, float playerRadius, glm::vec3 c
     return false;
 }
 
-bool Physics::checkGrounded(glm::vec3 cameraPos, float playerHeight)
+bool Physics::checkGrounded(glm::vec3 cameraPos, float playerRadius, float playerHeight)
 {
-    int x = static_cast<int>(round(cameraPos.x));
+    int xMin = static_cast<int>(round(cameraPos.x - playerRadius));
+    int xMax = static_cast<int>(round(cameraPos.x + playerRadius));
     int y = static_cast<int>(floor(cameraPos.y - playerHeight));
-    int z = static_cast<int>(round(cameraPos.z));
+    int zMin = static_cast<int>(round(cameraPos.z - playerRadius));
+    int zMax = static_cast<int>(round(cameraPos.z + playerRadius));
 
-    if (game->isOutOfWorld(x, y, z))
+    if (game->isOutOfWorld(xMax, y, zMax))
         return false;
 
-    return game->isBlockSolid(x, y, z);
+    if(game->isBlockSolid(xMin, y, zMin) || game->isBlockSolid(xMax, y, zMax) || game->isBlockSolid(xMax, y, zMin) || game->isBlockSolid(xMin, y, zMax))
+        return true;
+
+    return false;
 }
 
-float Physics::applyGravity(glm::vec3& cameraPos, float playerHeight, float deltaTime)
+float Physics::applyGravity(glm::vec3& cameraPos, float playerRadius, float playerHeight, float deltaTime)
 {
-    if(checkGrounded(cameraPos, playerHeight))
+    if(checkGrounded(cameraPos, playerRadius, playerHeight))
     {
         isGrounded = true;
         yVelocity = 0.f;
